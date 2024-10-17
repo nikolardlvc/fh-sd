@@ -4,6 +4,12 @@
   "parameters": {
     "storageName": {
       "type": "string"
+    },
+    "appServicePlanName": {
+      "type": "string"
+    },
+    "webAppName": {
+      "type": "string"
     }
   },
   "resources": [
@@ -11,11 +17,36 @@
       "type": "Microsoft.Storage/storageAccounts",
       "apiVersion": "2023-04-01",
       "name": "[parameters('storageName')]",
-      "location": "West Europe",
+      "location": "[resourceGroup().location]",
       "sku": {
         "name": "Standard_LRS"
       },
       "kind": "StorageV2"
+    },
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2022-03-01",
+      "name": "[parameters('appServicePlanName')]",
+      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "F1",
+        "tier": "Free",
+        "size": "F1",
+        "capacity": 1
+      },
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2022-03-01",
+      "name": "[parameters('webAppName')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
+      ],
+      "properties": {
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
+      }
     }
   ]
 }

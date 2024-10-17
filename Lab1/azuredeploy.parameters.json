@@ -4,6 +4,12 @@
   "parameters": {
     "storageName": {
       "value": "fhlab1s7vhd"
+    },
+    "appServicePlanName": {
+      "value": "lab1WebAppEnvs7vhd"
+    },
+    "webAppName": {
+      "value": "lab1WebApps7vhd"
     }
   }
 }
