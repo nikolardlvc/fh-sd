@@ -1,15 +1,12 @@
-const express = require("express");
-const app = express();
+const { app } = require("@azure/functions");
 
-// Define a route that responds with 'Hello, World!'
-app.get("/", (req, res) => {
-  res.send("Hello, World!");
+const sayHelloWorld = async (request, context) => {
+  return { body: "Hello, World!" };
+};
+
+app.http("hello", {
+  methods: ["POST", "GET"],
+  handler: sayHelloWorld,
 });
 
-// Set the app to listen on port 3000
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
-module.exports = app; // Export the app for testing
+module.exports = sayHelloWorld;
