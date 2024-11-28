@@ -5,6 +5,6 @@ const expect = chai.expect;
 describe("GET /hello", () => {
   it("should return Hello, World! message", async () => {
     const res = await sayHelloWorld();
-    expect(res.body).to.equal("Hello, Worlds!");
+    expect(res.body).to.equal("Hello, World!");
   });
 });
